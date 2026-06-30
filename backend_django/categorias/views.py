@@ -1,12 +1,15 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
+from rest_framework.response import Response # respuesta json ----  y jsonify?     y xq  si  ya  tengo e serializadoor
 from .models import Categoria
 from .serializers import CategoriaSerializer
 
+#  Loos  nombres no son descriptivos
+# funncions simples'
+
 @api_view(['GET', 'POST'])
 def categoria_list(request):
-    if request.method == 'GET':
+    if request.method == 'GET': 
         categorias = Categoria.objects.all()
         serializer = CategoriaSerializer(categorias, many=True)
         return Response(serializer.data)
@@ -18,6 +21,7 @@ def categoria_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# pk en vez de id
 @api_view(['GET', 'PUT', 'PATCH', 'DELETE'])
 def categoria_detail(request, pk):
     try:
